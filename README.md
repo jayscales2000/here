@@ -45,7 +45,7 @@ If an item in the menu doesn't appear in the dictionary, then there were no sale
 If the name of any item sold doesn't match the name of any MenuItem in the dictionary of MenuItem objects, this method should do nothing except raise an InvalidSalesItemError (you'll need to define this exception class)
 Otherwise, it should create a new SalesForDay object using the current day and the dictionary that was passed in, add that object to the list of SalesForDay objects, and then increment the current day by 1
 Any time this method is called (and the exception isn't raised), exactly one SalesForDay object should be created and added to the list
-sales_of_menu_item_for_day:
+get_sales_dict_for_day:
 Takes as parameters an integer representing a particular day and a string for the name of a menu item
 Returns the number of that item sold on that day
 This method uses the given day to find the corresponding SalesForDay object in the list and then calls its get_sales_dict() method to get the dictionary of sales for that day
