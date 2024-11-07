@@ -1,4 +1,3 @@
-project-2
 [70 pts] You will be writing code for recording the menu items and daily sales of a lemonade stand. It will have these classes: MenuItem, SalesForDay, and LemonadeStand. All data members of each class should be marked as private (a leading underscore in the name). Since they're private, if you need to access them from outside the class, you should do so via get or set methods.
 
 Here are descriptions of the three classes:
@@ -34,61 +33,3 @@ a dictionary of MenuItem objects, where the keys are the names of the items and 
 a list of SalesForDay objects
 The LemonadeStand methods are:
 
-init method - takes one parameter, a string for the name of the stand; initializes the name to that value, initializes current day to zero, initializes the menu to an empty dictionary, and initializes the sales record to an empty list
-a get method for the name: get_name()
-add_menu_item:
-Takes as a parameter a MenuItem object and adds it to the menu dictionary
-New items can be added to the menu on any day
-enter_sales_for_today:
-Takes as a parameter a dictionary where the keys are names of items sold and the corresponding values are how many of the item were sold (see the example at the end of the readme)
-If an item in the menu doesn't appear in the dictionary, then there were no sales of that item on that day. You don't need to worry about this in this method, but it's important in the next method.
-If the name of any item sold doesn't match the name of any MenuItem in the dictionary of MenuItem objects, this method should do nothing except raise an InvalidSalesItemError (you'll need to define this exception class)
-Otherwise, it should create a new SalesForDay object using the current day and the dictionary that was passed in, add that object to the list of SalesForDay objects, and then increment the current day by 1
-Any time this method is called (and the exception isn't raised), exactly one SalesForDay object should be created and added to the list
-get_sales_dict_for_day:
-Takes as parameters an integer representing a particular day and a string for the name of a menu item
-Returns the number of that item sold on that day
-This method uses the given day to find the corresponding SalesForDay object in the list and then calls its get_sales_dict() method to get the dictionary of sales for that day
-Then looks for the item name in the dictionary, taking into account that if an item in the menu doesn't appear in the dictionary, then there were no sales of that item on that day
-total_sales_for_menu_item:
-Takes as a parameter a string for the name of a menu item and returns the total number of that item sold over the history of the stand
-This method can make use of sales_of_menu_item_for_day
-total_profit_for_menu_item:
-Takes as a parameter a string for the name of a menu item and returns the total profit on that item over the history of the stand
-The profit for any item sold is the selling price of the item minus the wholesale cost of the item
-This method can make use of total_sales_for_menu_item
-total_profit_for_stand:
-Takes no parameters and returns the total profit on all items sold over the history of the stand
-This method can make use of total_profit_for_menu_item
-So a LemonadeStand contains a dictionary of MenuItems. It also contains a list of SalesForDay objects, and each of those SalesForDay objects contains a dictionary of items sold on a particular day. At each point it's important to keep straight whether you are currently working with a list or a dictionary, which you may find trickier when one is nested inside the other.
-
-[10 pts] Your LemonadeStand.py file must include a main function that runs if the file is run as a script, but not if it's imported to another file. Your main function should:
-
-create a LemonadeStand object
-create one or more MenuItem objects and add them to the LemonadeStand's menu
-create a dictionary of sales for the day that includes sales of at least one item that isn't in the menu
-try calling enter_sales_for_today(), passing that sales dictionary as the argument
-If an InvalidSalesItemError is raised, it should be caught with a try/except that prints an explanatory message for the user (otherwise the function should proceed normally)
-[20 pts] In addition to your file containing the code for the above classes, you must also submit a file that contains unit tests for your classes. It must have at least five unit tests and use at least two different assert functions. This part (like the rest) must be your own work.
-
-Gradescope will not test your main function or unit tests - the TAs will take care of that - but it will run tests on the rest of your code as usual.
-
-Here's a very simple example of how your classes could be used:
-
-stand = LemonadeStand('Lemons R Us')  # Create a new LemonadeStand callled 'Lemons R Us'
-item1 = MenuItem('lemonade', 0.5, 1.5)  # Create lemonade as a menu item (wholesale cost 50 cents, selling price $1.50)
-stand.add_menu_item(item1)  # Add lemonade to the menu for 'Lemons R Us'
-item2 = MenuItem('nori', 0.6, 0.8)  # Create nori as a menu item (wholesale cost 60 cents, selling price 80 cents)
-stand.add_menu_item(item2)  # Add nori to the menu for 'Lemons R Us'
-item3 = MenuItem('cookie', 0.2, 1)  # Create cookie as a menu item (wholesale cost 20 cents, selling price $1.00)
-stand.add_menu_item(item3)  # Add cookie to the menu for 'Lemons R Us'
-
-# This dictionary records that on day zero, 5 lemonades were sold, 2 cookies were sold, and no nori was sold
-day_0_sales = {
-    'lemonade' : 5,
-    'cookie'   : 2
-}
-
-stand.enter_sales_for_today(day_0_sales)  # Record the sales for day zero
-print(f"lemonade profit = {stand.total_profit_for_menu_item('lemonade')}")  # print the total profit for lemonade so far
-Your files must be named: LemonadeStand.py and LemonadeStandTester.py
